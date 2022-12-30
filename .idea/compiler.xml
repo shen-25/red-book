@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="book-model" />
+        <module name="book-common" />
+        <module name="book-service" />
+        <module name="book-api" />
+        <module name="book-mapper" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="book-api" options="-parameters" />
+      <module name="book-common" options="-parameters" />
+      <module name="book-mapper" options="-parameters" />
+      <module name="book-model" options="-parameters" />
+      <module name="book-service" options="-parameters" />
+      <module name="imooc-red-book-dev" options="-parameters" />
+    </option>
+  </component>
+</project>
