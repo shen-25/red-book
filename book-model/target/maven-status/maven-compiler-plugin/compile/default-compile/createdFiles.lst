@@ -1,0 +1,8 @@
+com\imooc\pojo\MyLikedVlog.class
+com\imooc\pojo\Comment.class
+com\imooc\vo\UsersVo.class
+com\imooc\model\Student.class
+com\imooc\pojo\Vlog.class
+com\imooc\pojo\Users.class
+com\imooc\pojo\Fans.class
+com\imooc\bo\RegisterBo.class

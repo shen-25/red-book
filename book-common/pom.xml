@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-<!--    通用工程-->
+    <!--    通用工程-->
     <artifactId>book-common</artifactId>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -35,11 +35,11 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
-        <!-- 引入 redis 依赖 -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-data-redis</artifactId>-->
-<!--        </dependency>-->
+        <!--         引入 redis 依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
 
         <!-- 引入 RabbitMQ 依赖 -->
         <dependency>
@@ -100,7 +100,6 @@
         <dependency>
             <groupId>com.tencentcloudapi</groupId>
             <artifactId>tencentcloud-sdk-java</artifactId>
-            <version>3.1.89</version>
         </dependency>
     </dependencies>
 </project>
