@@ -1,13 +1,18 @@
 package com.imooc.service.impl;
 
+import com.imooc.bo.UpdatedUserBO;
 import com.imooc.enums.Sex;
+import com.imooc.enums.UserInfoModifyType;
 import com.imooc.enums.YesOrNo;
+import com.imooc.exceptions.GraceException;
+import com.imooc.grace.result.ResponseStatusEnum;
 import com.imooc.mapper.UsersMapper;
 import com.imooc.pojo.Users;
 import com.imooc.service.UserService;
 import com.imooc.utils.DateUtil;
 import com.imooc.utils.DesensitizationUtil;
 import org.n3r.idworker.Sid;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +24,7 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements UserService {
 
-    public static final String USER_FACE1 = "http://192.168.0.100/images/user-default.png";
+    public static final String USER_FACE1 = "http://192.168.0.107/images/user-default.png";
 
     @Autowired
     public Sid sid;
@@ -76,5 +81,51 @@ public class UserServiceImpl implements UserService {
         user.setUpdatedTime(new Date());
         usersMapper.insert(user);
         return user;
+    }
+
+    @Override
+    public Users getUser(String userId) {
+        Users user = usersMapper.selectByPrimaryKey(userId);
+        return user;
+    }
+
+    @Transactional
+    @Override
+    public Users updateUserInfo(UpdatedUserBO updatedUserBO, Integer type) {
+        Example example = new Example(Users.class);
+        Example.Criteria criteria = example.createCriteria();
+        if (type.equals(UserInfoModifyType.NICKNAME.type)) {
+            criteria.andEqualTo("nickname", updatedUserBO.getNickname());
+            Users users = usersMapper.selectOneByExample(example);
+            if (users != null) {
+                GraceException.display(ResponseStatusEnum.USER_INFO_UPDATED_NICKNAME_EXIST_ERROR);
+            }
+        }
+        if (type.equals(UserInfoModifyType.IMOOCNUM.type)) {
+            criteria.andEqualTo("imoocNum", updatedUserBO.getImoocNum());
+            Users users = usersMapper.selectOneByExample(example);
+            if (users != null) {
+                GraceException.display(ResponseStatusEnum.USER_INFO_UPDATED_IMOOCNUM_EXIST_ERROR);
+            }
+            Users tempUser = getUser(updatedUserBO.getId());
+            if(tempUser.getCanImoocNumBeUpdated().equals(YesOrNo.NO.type)){
+                GraceException.display(ResponseStatusEnum.USER_INFO_CANT_UPDATED_IMOOCNUM_ERROR);
+            }
+            updatedUserBO.setCanImoocNumBeUpdated(YesOrNo.NO.type);
+        }
+
+        return updateUserInfo(updatedUserBO);
+    }
+
+    @Override
+    @Transactional
+    public Users updateUserInfo(UpdatedUserBO updatedUserBO) {
+        Users pendingUser = new Users();
+        BeanUtils.copyProperties(updatedUserBO, pendingUser);
+        int cnt = usersMapper.updateByPrimaryKeySelective(pendingUser);
+        if (cnt != 1) {
+            GraceException.display(ResponseStatusEnum.USER_UPDATE_ERROR);
+        }
+        return getUser(updatedUserBO.getId());
     }
 }

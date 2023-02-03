@@ -19,7 +19,19 @@ spring:
       connection-test-query: SELECT 1
 
   redis:
-    host: 192.168.93.132
+    host: 192.168.0.108
     port: 6379
     database: 0
     password: 123456
+
+# MinIO 配置
+minio:
+    endpoint: http://192.168.0.108:9000      # MinIO服务地址
+    fileHost: http://192.168.0.108:9000      # 文件地址host
+    bucketName: imooc                      # 存储桶bucket名称
+    accessKey: root                         # 用户名
+    secretKey: 12345678                     # 密码
+    imgSize: 1024                           # 图片大小限制，单位：m
+    fileSize: 1024                          # 文件大小限制，单位：m
+
+

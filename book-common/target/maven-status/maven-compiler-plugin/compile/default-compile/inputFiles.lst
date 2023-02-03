@@ -10,6 +10,7 @@ E:\java-web-project\imooc-red-book-dev\book-common\src\main\java\com\imooc\excep
 E:\java-web-project\imooc-red-book-dev\book-common\src\main\java\com\imooc\utils\SMSUtils.java
 E:\java-web-project\imooc-red-book-dev\book-common\src\main\java\org\n3r\idworker\strategy\DefaultRandomCodeStrategy.java
 E:\java-web-project\imooc-red-book-dev\book-common\src\main\java\com\imooc\utils\TencentCloudProperties.java
+E:\java-web-project\imooc-red-book-dev\book-common\src\main\java\com\imooc\enums\MessageEnum.java
 E:\java-web-project\imooc-red-book-dev\book-common\src\main\java\org\n3r\idworker\InvalidSystemClock.java
 E:\java-web-project\imooc-red-book-dev\book-common\src\main\java\org\n3r\idworker\DayCode.java
 E:\java-web-project\imooc-red-book-dev\book-common\src\main\java\com\imooc\utils\MinIOUtils.java
@@ -28,9 +29,11 @@ E:\java-web-project\imooc-red-book-dev\book-common\src\main\java\com\imooc\enums
 E:\java-web-project\imooc-red-book-dev\book-common\src\main\java\org\n3r\idworker\RandomCodeStrategy.java
 E:\java-web-project\imooc-red-book-dev\book-common\src\main\java\org\n3r\idworker\utils\Utils.java
 E:\java-web-project\imooc-red-book-dev\book-common\src\main\java\com\imooc\utils\MyInfo.java
+E:\java-web-project\imooc-red-book-dev\book-common\src\main\java\com\imooc\enums\FileTypeEnum.java
 E:\java-web-project\imooc-red-book-dev\book-common\src\main\java\com\imooc\enums\YesOrNo.java
 E:\java-web-project\imooc-red-book-dev\book-common\src\main\java\org\n3r\idworker\IdWorker.java
 E:\java-web-project\imooc-red-book-dev\book-common\src\main\java\org\n3r\idworker\Test.java
+E:\java-web-project\imooc-red-book-dev\book-common\src\main\java\com\imooc\enums\UserInfoModifyType.java
 E:\java-web-project\imooc-red-book-dev\book-common\src\main\java\com\imooc\exceptions\GraceExceptionHandler.java
 E:\java-web-project\imooc-red-book-dev\book-common\src\main\java\com\imooc\utils\RedisOperator.java
 E:\java-web-project\imooc-red-book-dev\book-common\src\main\java\org\n3r\idworker\Sid.java

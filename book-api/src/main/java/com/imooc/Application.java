@@ -2,12 +2,12 @@ package com.imooc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 /**
  * 问题解决 @MapperScan包引入错误导致的，切换为
  * import tk.mybatis.spring.annotation.MapperScan;
  * 可以正常获取到实体类
  */
+import org.springframework.context.annotation.ComponentScan;
 import tk.mybatis.spring.annotation.MapperScan;
 
 /**

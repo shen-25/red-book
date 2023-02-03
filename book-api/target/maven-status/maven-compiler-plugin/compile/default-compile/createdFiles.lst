@@ -1,10 +1,13 @@
-com\imooc\WebMvcConfigurerStatic.class
+com\imooc\MinIOConfig.class
 com\imooc\interceptor\PassportInterceptor.class
+com\imooc\interceptor\UserTokenInterceptor.class
 com\imooc\InterceptorConfig.class
 com\imooc\controller\PassportController.class
+com\imooc\controller\UserInfoController.class
 com\imooc\Knife4jConfiguration.class
+com\imooc\controller\FileController.class
 com\imooc\controller\HellController.class
 com\imooc\Application.class
-com\imooc\filter\CorsFilter.class
-com\imooc\controller\BaseInfoProperties.class
+com\imooc\WebMvcStaticConfigurer.class
+com\imooc\controller\VlogController.class
 com\imooc\controller\BaseController.class

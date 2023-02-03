@@ -1,5 +1,6 @@
 package com.imooc.controller;
 
+import com.imooc.base.BaseInfoProperties;
 import com.imooc.bo.RegisterBo;
 import com.imooc.grace.result.GraceJSONResult;
 import com.imooc.grace.result.ResponseStatusEnum;
@@ -7,7 +8,7 @@ import com.imooc.pojo.Users;
 import com.imooc.service.UserService;
 import com.imooc.utils.IPUtil;
 import com.imooc.utils.SMSUtils;
-import com.imooc.vo.UsersVo;
+import com.imooc.vo.UsersVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -90,17 +91,19 @@ public class PassportController extends BaseInfoProperties {
 
         //3.保存用户会话信息
         String uToken = UUID.randomUUID().toString();
+        log.info("用户的token: " +   uToken);
+        log.info("用户id: " +  user.getId());
         redis.set(REDIS_USER_TOKEN + ":" + user.getId(), uToken);
 
         //4.用户登录和注册成功后，删除redis的短信验证码
         redis.del(MOBILE_SMSCODE + ":" + mobile);
 
         //5.放回用户信息，包含token
-        UsersVo usersVo = new UsersVo();
-        BeanUtils.copyProperties(user, usersVo);
-        usersVo.setUserToken(uToken);
+        UsersVO UsersVO = new UsersVO();
+        BeanUtils.copyProperties(user, UsersVO);
+        UsersVO.setUserToken(uToken);
 
-        return GraceJSONResult.ok(usersVo);
+        return GraceJSONResult.ok(UsersVO);
     }
 
     @ApiOperation(value = "退出接口")

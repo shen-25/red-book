@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author word
  */
 @Configuration
-public class WebMvcConfigurerStatic implements WebMvcConfigurer {
+public class WebMvcStaticConfigurer implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

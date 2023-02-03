@@ -1,6 +1,7 @@
+com\imooc\mapper\CommentMapper.class
+com\imooc\mapper\UsersMapper.class
 com\imooc\mapper\FansMapper.class
 com\imooc\my\mapper\MyMapper.class
 com\imooc\mapper\MyLikedVlogMapper.class
-com\imooc\mapper\CommentMapper.class
-com\imooc\mapper\UsersMapper.class
+com\imooc\mapper\VlogMapperCustom.class
 com\imooc\mapper\VlogMapper.class
