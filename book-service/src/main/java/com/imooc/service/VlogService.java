@@ -1,5 +1,6 @@
 package com.imooc.service;
 
+import com.imooc.pojo.MyLikedVlog;
 import com.imooc.utils.PagedGridResult;
 import com.imooc.vo.IndexVlogVO;
 
@@ -8,7 +9,9 @@ public interface VlogService {
     /**
      * 查询首页的vlog
      */
-    public PagedGridResult getIndexVlogList(String search, Integer page, Integer pageSize);
+    public PagedGridResult getIndexVlogList(String userId,String search, Integer page, Integer pageSize);
+
+    Integer getVlogBeLikeCounts(String vlogId);
 
     /**
      * 根据视频主键查询vlog
@@ -24,5 +27,21 @@ public interface VlogService {
      * 查询用户的公开或者私密视频
      */
     public PagedGridResult queryMyVlogList(String userId ,Integer page, Integer pageSize, Integer yesOrNo);
+
+    /**
+     * 用户点赞视频
+     */
+    public MyLikedVlog userlikeVlog(String userId, String vlogId);
+
+    /**
+     * 用户取消点赞视频
+     */
+    public void userUnlikeVlog(String userId, String vlogId);
+
+    /**
+     * 查询用户点赞过的短视频
+     */
+    public PagedGridResult getMyLikeVlogList(String userId ,Integer page, Integer pageSize);
+
 
 }

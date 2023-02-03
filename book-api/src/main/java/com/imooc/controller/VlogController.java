@@ -3,6 +3,7 @@ package com.imooc.controller;
 import com.imooc.base.BaseInfoProperties;
 import com.imooc.enums.YesOrNo;
 import com.imooc.grace.result.GraceJSONResult;
+import com.imooc.pojo.MyLikedVlog;
 import com.imooc.service.VlogService;
 import com.imooc.utils.PagedGridResult;
 import com.imooc.vo.IndexVlogVO;
@@ -34,7 +35,7 @@ public class VlogController extends BaseInfoProperties {
             pageSize = COMMON_PAGE_SIZE;
         }
 
-        PagedGridResult PagedGridResult = vlogService.getIndexVlogList(search, page, pageSize);
+        PagedGridResult PagedGridResult = vlogService.getIndexVlogList(userId, search, page, pageSize);
         return GraceJSONResult.ok(PagedGridResult);
     }
 
@@ -85,8 +86,64 @@ public class VlogController extends BaseInfoProperties {
     @GetMapping("myPrivateList")
     public GraceJSONResult myPrivateList(@RequestParam String userId,
                                         @RequestParam Integer page,
-                                        @RequestParam Integer pageSize
-    ) {
+                                        @RequestParam Integer pageSize) {
+        if (page == null) {
+            page = COMMON_START_PAGE;
+        }
+        if (pageSize == null) {
+            pageSize = COMMON_PAGE_SIZE;
+        }
+        PagedGridResult pagedGridResult = vlogService.queryMyVlogList(userId, page, pageSize, YesOrNo.YES.type);
+        return GraceJSONResult.ok(pagedGridResult);
+    }
+
+    @ApiOperation(value = "用户点赞视频")
+    @PostMapping("like")
+    public GraceJSONResult like(@RequestParam String userId,
+                                         @RequestParam String vlogerId,
+                                         @RequestParam String vlogId) {
+
+       vlogService.userlikeVlog(userId, vlogId);
+
+        // 点赞后，视频和博主的获赞都加 1
+        redis.increment(REDIS_VLOGER_BE_LIKED_COUNTS + ":" + vlogerId, 1);
+        redis.increment(REDIS_VLOG_BE_LIKED_COUNTS + ":" + vlogId, 1);
+
+        redis.set(REDIS_USER_LIKE_COMMENT + ":" + userId + ":" + vlogId, "1");
+        return GraceJSONResult.ok();
+    }
+
+    @ApiOperation(value = "用户取消点赞视频")
+    @PostMapping("unlike")
+    public GraceJSONResult unlike(@RequestParam String userId,
+                                @RequestParam String vlogerId,
+                                @RequestParam String vlogId) {
+
+        vlogService.userUnlikeVlog(userId, vlogId);
+
+        // 取消点赞后，视频和博主的获赞都减 1
+        redis.decrement(REDIS_VLOGER_BE_LIKED_COUNTS + ":" + vlogerId, 1);
+        redis.decrement(REDIS_VLOG_BE_LIKED_COUNTS + ":" + vlogId, 1);
+
+        redis.del(REDIS_USER_LIKE_COMMENT + ":" + userId + ":" + vlogId);
+        return GraceJSONResult.ok();
+    }
+
+    @ApiOperation(value = "获取视频最新的点赞数")
+    @PostMapping("totalLikedCounts")
+    public GraceJSONResult totalLikedCounts(
+                                  @RequestParam String vlogId) {
+
+        Integer vlogBeLikeCounts = vlogService.getVlogBeLikeCounts(vlogId);
+        return GraceJSONResult.ok(vlogBeLikeCounts);
+    }
+
+
+    @ApiOperation(value = "获取用户点赞的视频")
+    @GetMapping("myLikedList")
+    public GraceJSONResult getMyLikeVlogList(@RequestParam String userId,
+                                             @RequestParam Integer page,
+                                             @RequestParam Integer pageSize) {
         if (page == null) {
             page = COMMON_START_PAGE;
         }
@@ -94,7 +151,8 @@ public class VlogController extends BaseInfoProperties {
             pageSize = COMMON_PAGE_SIZE;
         }
 
-        PagedGridResult pagedGridResult = vlogService.queryMyVlogList(userId, page, pageSize, YesOrNo.YES.type);
-        return GraceJSONResult.ok(pagedGridResult);
+        PagedGridResult myLikeVlogList = vlogService.getMyLikeVlogList(userId, page, pageSize);
+        return GraceJSONResult.ok(myLikeVlogList);
     }
+
 }

@@ -2,9 +2,10 @@ package com.imooc.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.imooc.base.BaseInfoProperties;
-import com.imooc.grace.result.GraceJSONResult;
+import com.imooc.mapper.MyLikedVlogMapper;
 import com.imooc.mapper.VlogMapper;
 import com.imooc.mapper.VlogMapperCustom;
+import com.imooc.pojo.MyLikedVlog;
 import com.imooc.pojo.Vlog;
 import com.imooc.service.VlogService;
 import com.imooc.utils.PagedGridResult;
@@ -14,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.n3r.idworker.Sid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.HashMap;
@@ -35,18 +37,41 @@ public class VlogServiceImpl extends BaseInfoProperties implements VlogService {
     @Autowired
     private VlogMapper vlogMapper;
 
+    @Autowired
+    private MyLikedVlogMapper myLikedVlogMapper;
+
     /**
      * 查询首页的vlog
      */
     @Override
-    public PagedGridResult getIndexVlogList(String search, Integer page, Integer pageSize) {
+    public PagedGridResult getIndexVlogList(String userId, String search, Integer page, Integer pageSize) {
         PageHelper.startPage(page, pageSize);
         Map<String, Object> map = new HashMap<>();
         if (StringUtils.isNotBlank(search)) {
             map.put("search", search);
         }
         List<IndexVlogVO> indexVlogList = vlogMapperCustom.getIndexVlogList(map);
+        for(IndexVlogVO indexVlogVO : indexVlogList){
+            String vlogId = indexVlogVO.getVlogId();
+            String vlogerId = indexVlogVO.getVlogerId();
+            // 判断用户是否点赞过此视频
+            if (StringUtils.isNotBlank(userId)) {
+                indexVlogVO.setDoILikeThisVlog(doILikeVlog(userId, vlogId));
+            }
+            //  获取视频点赞数
+            indexVlogVO.setLikeCounts(getVlogBeLikeCounts(vlogId));
+        }
         return setterPagedGrid(indexVlogList, page);
+    }
+
+    @Override
+    public Integer getVlogBeLikeCounts(String vlogId) {
+        Integer res = 1;
+        String cnt = redis.get( REDIS_VLOG_BE_LIKED_COUNTS + ":" + vlogId);
+        if (StringUtils.isNotBlank(cnt)) {
+            res = Integer.valueOf(cnt);
+        }
+        return  res;
     }
 
     /**
@@ -79,6 +104,8 @@ public class VlogServiceImpl extends BaseInfoProperties implements VlogService {
         vlogMapper.updateByExampleSelective(vlog, example);
     }
 
+
+
     /**
      * 查询用户的公开或者私密视频
      *
@@ -97,7 +124,53 @@ public class VlogServiceImpl extends BaseInfoProperties implements VlogService {
         PageHelper.startPage(page, pageSize);
         List<Vlog> vlogList = vlogMapper.selectByExample(example);
         return setterPagedGrid(vlogList, page);
+    }
 
+    /**
+     * 用户点赞视频
+     *
+     * @param userId
+     * @param vlogId
+     */
+    @Override
+    @Transactional
+    public MyLikedVlog userlikeVlog(String userId, String vlogId) {
+        String id = sid.nextShort();
+        MyLikedVlog myLikedVlog = new MyLikedVlog();
+        myLikedVlog.setId(id);
+        myLikedVlog.setVlogId(vlogId);
+        myLikedVlog.setUserId(userId);
+        myLikedVlogMapper.insert(myLikedVlog);
+        return myLikedVlog;
+    }
+
+    @Override
+    @Transactional
+    public void userUnlikeVlog(String userId, String vlogId) {
+        MyLikedVlog myLikedVlog = new MyLikedVlog();
+        myLikedVlog.setVlogId(vlogId);
+        myLikedVlog.setUserId(userId);
+        myLikedVlogMapper.delete(myLikedVlog);
+    }
+
+    public boolean doILikeVlog(String userId, String vlogId) {
+        String isLike = redis.get(REDIS_USER_LIKE_COMMENT + ":" + userId + ":" + vlogId);
+        return StringUtils.isNotBlank(isLike)
+                && isLike.equalsIgnoreCase("1");
+    }
+
+    /**
+     * 查询用户点赞过的短视频
+     */
+    @Override
+    public PagedGridResult getMyLikeVlogList(String userId, Integer page, Integer pageSize) {
+        PageHelper.startPage(page, pageSize);
+        Map<String, Object> map = new HashMap<>();
+        if (StringUtils.isNotBlank(userId)) {
+            map.put("userId", userId);
+        }
+        List<IndexVlogVO> myLikedVlogList = vlogMapperCustom.getMyLikedVlogList(map);
+        return setterPagedGrid(myLikedVlogList, page);
     }
 }
 

@@ -1,5 +1,7 @@
+com\imooc\service\impl\FanServiceImpl.class
 com\imooc\service\VlogService.class
 com\imooc\service\impl\VlogServiceImpl.class
 com\imooc\base\BaseInfoProperties.class
 com\imooc\service\impl\UserServiceImpl.class
+com\imooc\service\FanService.class
 com\imooc\service\UserService.class

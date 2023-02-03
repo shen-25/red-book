@@ -118,7 +118,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public Users updateUserInfo(UpdatedUserBO updatedUserBO) {
         Users pendingUser = new Users();
         BeanUtils.copyProperties(updatedUserBO, pendingUser);
