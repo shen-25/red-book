@@ -16,7 +16,7 @@ public interface VlogService {
     /**
      * 根据视频主键查询vlog
      */
-    public IndexVlogVO getVlogDetailById(String vlogId);
+    public IndexVlogVO getVlogDetailById(String vlogId, String userId);
 
     /**
      * 用户把视频改为公开或者私密
@@ -43,5 +43,14 @@ public interface VlogService {
      */
     public PagedGridResult getMyLikeVlogList(String userId ,Integer page, Integer pageSize);
 
+    /**
+     * 查询用户关注的博主视频
+     */
+    public PagedGridResult getMyFollowVlogList(String userId ,Integer page, Integer pageSize);
+
+    /**
+     * 查询用户的朋友视频
+     */
+    public PagedGridResult getMyFriendVlogList(String userId ,Integer page, Integer pageSize);
 
 }

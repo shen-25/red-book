@@ -43,7 +43,7 @@ public class VlogController extends BaseInfoProperties {
     @GetMapping("detail")
     public GraceJSONResult detail(@RequestParam(defaultValue = "") String userId,
                                   @RequestParam String vlogId) {
-        IndexVlogVO vlogDetailById = vlogService.getVlogDetailById(vlogId);
+        IndexVlogVO vlogDetailById = vlogService.getVlogDetailById(vlogId, userId);
         return GraceJSONResult.ok(vlogDetailById);
 
     }
@@ -155,4 +155,35 @@ public class VlogController extends BaseInfoProperties {
         return GraceJSONResult.ok(myLikeVlogList);
     }
 
+    @ApiOperation(value = "获取用户关注的博主视频")
+    @GetMapping("followList")
+    public GraceJSONResult getMyFollowVlogList(@RequestParam String myId,
+                                             @RequestParam Integer page,
+                                             @RequestParam Integer pageSize) {
+        if (page == null) {
+            page = COMMON_START_PAGE;
+        }
+        if (pageSize == null) {
+            pageSize = COMMON_PAGE_SIZE;
+        }
+
+        PagedGridResult myFollowVlogList = vlogService.getMyFollowVlogList(myId, page, pageSize);
+        return GraceJSONResult.ok(myFollowVlogList);
+    }
+
+    @ApiOperation(value = "获取用户的朋友视频")
+    @GetMapping("friendList")
+    public GraceJSONResult getMyFriendVlogList(@RequestParam String myId,
+                                               @RequestParam Integer page,
+                                               @RequestParam Integer pageSize) {
+        if (page == null) {
+            page = COMMON_START_PAGE;
+        }
+        if (pageSize == null) {
+            pageSize = COMMON_PAGE_SIZE;
+        }
+
+        PagedGridResult myFollowVlogList = vlogService.getMyFriendVlogList(myId, page, pageSize);
+        return GraceJSONResult.ok(myFollowVlogList);
+    }
 }
