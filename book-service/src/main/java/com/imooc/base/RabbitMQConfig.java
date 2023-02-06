@@ -1,4 +1,4 @@
-package com.imooc;
+package com.imooc.base;
 
 import org.springframework.amqp.core.*;
 import org.springframework.beans.factory.annotation.Qualifier;

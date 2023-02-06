@@ -2,18 +2,21 @@ package com.imooc.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.imooc.base.BaseInfoProperties;
-import com.imooc.enums.MessageEnum;
+import com.imooc.base.RabbitMQConfig;
 import com.imooc.enums.YesOrNo;
 import com.imooc.mapper.FansMapper;
 import com.imooc.mapper.FansMapperCuston;
+import com.imooc.mo.MessageMO;
 import com.imooc.pojo.Fans;
 import com.imooc.service.FanService;
 import com.imooc.service.MsgService;
+import com.imooc.utils.JsonUtils;
 import com.imooc.utils.PagedGridResult;
 import com.imooc.vo.FansVO;
 import com.imooc.vo.VlogerVO;
 import org.apache.commons.lang3.StringUtils;
 import org.n3r.idworker.Sid;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +43,9 @@ public class FanServiceImpl extends BaseInfoProperties implements FanService {
     @Autowired
     private Sid sid;
 
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
     @Override
     @Transactional
     public void doFollow(String userId, String vlogerId) {
@@ -58,9 +64,17 @@ public class FanServiceImpl extends BaseInfoProperties implements FanService {
             fans.setIsFanFriendOfMine(YesOrNo.NO.type);
         }
         fansMapper.insert(fans);
+        MessageMO messageMO = new MessageMO();
+        messageMO.setToUserId(vlogerId);
+        messageMO.setFromUserId(userId);
 
-        // 关注消息
-        msgService.createMsg(userId, vlogerId, MessageEnum.FOLLOW_YOU.type, null);
+        rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_MSG,
+                "sys.msg.follow",
+                JsonUtils.objectToJson(messageMO));
+
+//        // 关注消息
+//        msgService.createMsg(userId, vlogerId,
+//                  MessageEnum.FOLLOW_YOU.type, null);
     }
 
     public Fans queryFansRelationShip(String fanId, String vlogerId) {
