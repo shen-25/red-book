@@ -23,6 +23,17 @@ spring:
     port: 6379
     database: 0
     password: 123456
+  data:
+    mongodb:
+      uri: mongodb://root:123456@192.168.0.108:27017
+      database: imooc-red-book
+
+  rabbitmq:
+    host: 192.168.0.108
+    port: 5672
+    username: root
+    password: 123456
+    virtual-host: imooc-red-book
 
 # MinIO 配置
 minio:

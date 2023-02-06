@@ -2,11 +2,13 @@ package com.imooc.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.imooc.base.BaseInfoProperties;
+import com.imooc.enums.MessageEnum;
 import com.imooc.enums.YesOrNo;
 import com.imooc.mapper.FansMapper;
 import com.imooc.mapper.FansMapperCuston;
 import com.imooc.pojo.Fans;
 import com.imooc.service.FanService;
+import com.imooc.service.MsgService;
 import com.imooc.utils.PagedGridResult;
 import com.imooc.vo.FansVO;
 import com.imooc.vo.VlogerVO;
@@ -32,6 +34,8 @@ public class FanServiceImpl extends BaseInfoProperties implements FanService {
     @Autowired
     private FansMapperCuston fansMapperCuston;
 
+    @Autowired
+    private MsgService msgService;
 
     @Autowired
     private Sid sid;
@@ -54,6 +58,9 @@ public class FanServiceImpl extends BaseInfoProperties implements FanService {
             fans.setIsFanFriendOfMine(YesOrNo.NO.type);
         }
         fansMapper.insert(fans);
+
+        // 关注消息
+        msgService.createMsg(userId, vlogerId, MessageEnum.FOLLOW_YOU.type, null);
     }
 
     public Fans queryFansRelationShip(String fanId, String vlogerId) {

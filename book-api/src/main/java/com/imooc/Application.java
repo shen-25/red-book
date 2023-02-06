@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 可以正常获取到实体类
  */
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import tk.mybatis.spring.annotation.MapperScan;
 
 /**
@@ -18,6 +19,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 //默认扫描子包和他的包的下所有的，
 //这里添加自定义扫描
 @ComponentScan(basePackages = {"com.imooc","org.n3r.idworker"})
+@EnableMongoRepositories
 public class Application {
     public static void main(String[] args){
         SpringApplication.run(Application.class, args);

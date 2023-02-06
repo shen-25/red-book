@@ -2,12 +2,14 @@ package com.imooc.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.imooc.base.BaseInfoProperties;
+import com.imooc.enums.MessageEnum;
 import com.imooc.mapper.MyLikedVlogMapper;
 import com.imooc.mapper.VlogMapper;
 import com.imooc.mapper.VlogMapperCustom;
 import com.imooc.pojo.MyLikedVlog;
 import com.imooc.pojo.Vlog;
 import com.imooc.service.FanService;
+import com.imooc.service.MsgService;
 import com.imooc.service.VlogService;
 import com.imooc.utils.PagedGridResult;
 import com.imooc.vo.IndexVlogVO;
@@ -43,6 +45,9 @@ public class VlogServiceImpl extends BaseInfoProperties implements VlogService {
 
     @Autowired
     private FanService fansService;
+
+    @Autowired
+    private MsgService msgService;
 
     /**
      * 查询首页的vlog
@@ -165,7 +170,17 @@ public class VlogServiceImpl extends BaseInfoProperties implements VlogService {
         myLikedVlog.setVlogId(vlogId);
         myLikedVlog.setUserId(userId);
         myLikedVlogMapper.insert(myLikedVlog);
+        Vlog vlog = getVlog(vlogId);
+        Map<String, Object> map = new HashMap<>();
+        map.put("vlogId", vlogId);
+        map.put("vlogCover", vlog.getCover());
+        msgService.createMsg(userId, vlog.getVlogerId(), MessageEnum.LIKE_VLOG.type, map);
         return myLikedVlog;
+    }
+
+    @Override
+    public Vlog getVlog(String vlogId) {
+        return vlogMapper.selectByPrimaryKey(vlogId);
     }
 
     @Override
