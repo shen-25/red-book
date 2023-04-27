@@ -1,4 +1,4 @@
-package com.imooc.bo;
+package com.douyin.bo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

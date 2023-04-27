@@ -26,9 +26,6 @@ public class UserTokenInterceptor extends BaseInfoProperties implements HandlerI
             所以在第二个过滤器判断token之前先判断是不是预请求OPTIONS，不是则验证token，是则放行。
          */
         System.out.println(request.getMethod());
-        if(request.getMethod().equals("OPTIONS")){
-            return true;
-        }
         //从header获取用户的id和token
 
         String userId = request.getHeader("headerUserId");

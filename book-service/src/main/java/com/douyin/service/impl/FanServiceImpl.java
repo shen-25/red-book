@@ -3,6 +3,7 @@ package com.imooc.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.imooc.base.BaseInfoProperties;
 import com.imooc.base.RabbitMQConfig;
+import com.imooc.enums.MessageEnum;
 import com.imooc.enums.YesOrNo;
 import com.imooc.mapper.FansMapper;
 import com.imooc.mapper.FansMapperCuston;
@@ -47,7 +48,7 @@ public class FanServiceImpl extends BaseInfoProperties implements FanService {
     private RabbitTemplate rabbitTemplate;
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void doFollow(String userId, String vlogerId) {
         Fans fans = new Fans();
         String id = sid.nextShort();
@@ -72,9 +73,6 @@ public class FanServiceImpl extends BaseInfoProperties implements FanService {
                 "sys.msg.follow",
                 JsonUtils.objectToJson(messageMO));
 
-//        // 关注消息
-//        msgService.createMsg(userId, vlogerId,
-//                  MessageEnum.FOLLOW_YOU.type, null);
     }
 
     public Fans queryFansRelationShip(String fanId, String vlogerId) {

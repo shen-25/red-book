@@ -56,8 +56,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public Users createUser(String mobile) {
-        UUID uuid = UUID.randomUUID();
-        System.out.println(uuid.toString());
         String userId = sid.nextShort();
         Users user = new Users();
         user.setId(userId);

@@ -24,14 +24,12 @@ import java.util.Optional;
 public class MinIOUtils {
 
     private static MinioClient minioClient;
-
     private static String endpoint;
     private static String bucketName;
     private static String accessKey;
     private static String secretKey;
     private static Integer imgSize;
     private static Integer fileSize;
-
 
     private static final String SEPARATOR = "/";
 
@@ -64,13 +62,12 @@ public class MinIOUtils {
                 log.info("创建完毕 MinioClient...");
             }
         } catch (Exception e) {
-            log.error("MinIO服务器异常：{}", e);
+            log.error("MinIO服务器异常：", e);
         }
     }
 
     /**
      * 获取上传文件前缀路径
-     * @return
      */
     public static String getBasisUrl() {
         return endpoint + SEPARATOR + bucketName + SEPARATOR;
@@ -81,7 +78,6 @@ public class MinIOUtils {
     /**
      * 启动SpringBoot容器的时候初始化Bucket
      * 如果没有Bucket则创建
-     * @throws Exception
      */
     private static void createBucket(String bucketName) throws Exception {
         if (!bucketExists(bucketName)) {
@@ -91,36 +87,25 @@ public class MinIOUtils {
 
     /**
      *  判断Bucket是否存在，true：存在，false：不存在
-     * @return
-     * @throws Exception
      */
     public static boolean bucketExists(String bucketName) throws Exception {
         return minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
     }
 
-
     /**
      * 获得Bucket的策略
-     * @param bucketName
-     * @return
-     * @throws Exception
      */
     public static String getBucketPolicy(String bucketName) throws Exception {
         String bucketPolicy = minioClient
-                                .getBucketPolicy(
-                                        GetBucketPolicyArgs
-                                                .builder()
-                                                .bucket(bucketName)
-                                                .build()
-                                );
+                .getBucketPolicy(GetBucketPolicyArgs.builder()
+                        .bucket(bucketName)
+                        .build());
         return bucketPolicy;
     }
 
 
     /**
      * 获得所有Bucket列表
-     * @return
-     * @throws Exception
      */
     public static List<Bucket> getAllBuckets() throws Exception {
         return minioClient.listBuckets();
@@ -128,9 +113,6 @@ public class MinIOUtils {
 
     /**
      * 根据bucketName获取其相关信息
-     * @param bucketName
-     * @return
-     * @throws Exception
      */
     public static Optional<Bucket> getBucket(String bucketName) throws Exception {
         return getAllBuckets().stream().filter(b -> b.name().equals(bucketName)).findFirst();
@@ -138,8 +120,6 @@ public class MinIOUtils {
 
     /**
      * 根据bucketName删除Bucket，true：删除成功； false：删除失败，文件或已不存在
-     * @param bucketName
-     * @throws Exception
      */
     public static void removeBucket(String bucketName) throws Exception {
         minioClient.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
@@ -154,7 +134,6 @@ public class MinIOUtils {
      * 判断文件是否存在
      * @param bucketName 存储桶
      * @param objectName 文件名
-     * @return
      */
     public static boolean isObjectExist(String bucketName, String objectName) {
         boolean exist = true;
@@ -170,7 +149,6 @@ public class MinIOUtils {
      * 判断文件夹是否存在
      * @param bucketName 存储桶
      * @param objectName 文件夹名称
-     * @return
      */
     public static boolean isFolderExist(String bucketName, String objectName) {
         boolean exist = false;
@@ -382,7 +360,7 @@ public class MinIOUtils {
             try {
                 removeFile(bucketName, s);
             } catch (Exception e) {
-                log.error("批量删除失败！error:{}",e);
+                log.error("批量删除失败！error: ",e);
             }
         });
     }

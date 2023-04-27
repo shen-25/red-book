@@ -50,21 +50,21 @@ public class UserInfoController extends BaseInfoProperties {
         // String likedVlogCountsStr = redis.get(REDIS_VLOG_BE_LIKED_COUNTS + ":" + userId);
         String likedVlogerCountsStr = redis.get(REDIS_VLOGER_BE_LIKED_COUNTS + ":" + userId);
 
-        Integer myFollowsCounts = 0;
-        Integer myFansCounts = 0;
-        Integer likedVlogCounts = 0;
-        Integer likedVlogerCounts = 0;
-        Integer totalLikeMeCounts = 0;
+        int myFollowsCounts = 0;
+        int myFansCounts = 0;
+        int likedVlogCounts = 0;
+        int likedVlogerCounts = 0;
+        int totalLikeMeCounts = 0;
 
         if (StringUtils.isNotBlank(myFollowsCountsStr)) {
-            myFollowsCounts = Integer.valueOf(myFollowsCountsStr);
+            myFollowsCounts = Integer.parseInt(myFollowsCountsStr);
         }
         if (StringUtils.isNotBlank(myFansCountsStr)) {
-            myFansCounts = Integer.valueOf(myFansCountsStr);
+            myFansCounts = Integer.parseInt(myFansCountsStr);
         }
 
         if (StringUtils.isNotBlank(likedVlogerCountsStr)) {
-            likedVlogerCounts = Integer.valueOf(likedVlogerCountsStr);
+            likedVlogerCounts = Integer.parseInt(likedVlogerCountsStr);
         }
         totalLikeMeCounts = likedVlogerCounts + likedVlogCounts;
 

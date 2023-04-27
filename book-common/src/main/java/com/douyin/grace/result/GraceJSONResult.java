@@ -41,6 +41,7 @@ public class GraceJSONResult {
     public static GraceJSONResult ok() {
         return new GraceJSONResult(ResponseStatusEnum.SUCCESS);
     }
+
     public GraceJSONResult(Object data) {
         this.status = ResponseStatusEnum.SUCCESS.status();
         this.msg = ResponseStatusEnum.SUCCESS.msg();

@@ -31,8 +31,11 @@ public class FileController {
         String fileName = file.getOriginalFilename();
         MinIOUtils.uploadFile(minIOConfig.getBucketName(),
                 fileName, file.getInputStream());
-        String imgUrl = minIOConfig.getFileHost() + "/" + minIOConfig.getBucketName() + "/" + fileName;
+        String imgUrl = minIOConfig.getFileHost()
+                + "/" + minIOConfig.getBucketName()
+                + "/" + fileName;
         return GraceJSONResult.ok(imgUrl);
     }
+
 
 }

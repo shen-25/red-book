@@ -2,19 +2,23 @@ package com.imooc.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.imooc.base.BaseInfoProperties;
+import com.imooc.base.RabbitMQConfig;
 import com.imooc.bo.CommentBO;
 import com.imooc.enums.MessageEnum;
 import com.imooc.mapper.CommentMapper;
 import com.imooc.mapper.CommentMapperCustom;
+import com.imooc.mo.MessageMO;
 import com.imooc.pojo.Comment;
 import com.imooc.pojo.Vlog;
 import com.imooc.service.CommentService;
 import com.imooc.service.MsgService;
 import com.imooc.service.VlogService;
+import com.imooc.utils.JsonUtils;
 import com.imooc.utils.PagedGridResult;
 import com.imooc.vo.CommentVO;
 import org.apache.commons.lang3.StringUtils;
 import org.n3r.idworker.Sid;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +47,9 @@ public class CommentServiceImpl extends BaseInfoProperties implements CommentSer
     @Autowired
     private VlogService vlogService;
 
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
     @Override
     @Transactional
     public CommentVO createComment(CommentBO commentBO) {
@@ -64,18 +71,24 @@ public class CommentServiceImpl extends BaseInfoProperties implements CommentSer
         msgContent.put("vlogCover", vlog.getCover());
         msgContent.put("commentId", id);
         msgContent.put("commentContent", commentBO.getContent());
-        Integer type = MessageEnum.COMMENT_VLOG.type;
+        int type = MessageEnum.COMMENT_VLOG.type;
+        String routeType = MessageEnum.COMMENT_VLOG.enValue;
+
         if (StringUtils.isNotBlank(commentBO.getFatherCommentId()) &&
                 !commentBO.getFatherCommentId().equalsIgnoreCase("0") ) {
             type = MessageEnum.REPLY_YOU.type;
+            routeType = MessageEnum.REPLY_YOU.enValue;
         }
 
-        msgService.createMsg(commentBO.getCommentUserId(),
-                commentBO.getVlogerId(),
-                type,
-                msgContent);
-
-        msgService.createMsg(commentBO.getCommentUserId(), comment.getVlogerId(), type, msgContent );
+        // MQ异步解耦
+        MessageMO messageMO = new MessageMO();
+        messageMO.setFromUserId(commentBO.getCommentUserId());
+        messageMO.setToUserId(commentBO.getVlogerId());
+        messageMO.setMsgContent(msgContent);
+        rabbitTemplate.convertAndSend(
+                RabbitMQConfig.EXCHANGE_MSG,
+                "sys.msg." + routeType,
+                JsonUtils.objectToJson(messageMO));
         return commentVO;
     }
 
@@ -88,13 +101,13 @@ public class CommentServiceImpl extends BaseInfoProperties implements CommentSer
         for (CommentVO cv : commentList) {
             String commentId = cv.getCommentId();
             String countStr = redis.getHashValue(REDIS_VLOG_COMMENT_COUNTS, commentId);
-            Integer counts = 0;
+            int counts = 0;
             if (StringUtils.isNotBlank(countStr)) {
-                counts = Integer.valueOf(countStr);
+                counts = Integer.parseInt(countStr);
             }
             cv.setLikeCounts(counts);
             String isLike = redis.hget(REDIS_USER_LIKE_COMMENT, userId + ":" + commentId);
-            Integer like = 0;
+            int like = 0;
             if (StringUtils.isNotBlank(isLike) && isLike.equalsIgnoreCase("1")) {
                 like = 1;
             }
