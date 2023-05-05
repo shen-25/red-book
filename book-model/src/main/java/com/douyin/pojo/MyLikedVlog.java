@@ -1,4 +1,4 @@
-package com.imooc.pojo;
+package com.douyin.pojo;
 
 import org.springframework.data.annotation.Id;
 

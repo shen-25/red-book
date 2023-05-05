@@ -1,4 +1,4 @@
-package com.imooc;
+package com.douyin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,7 +18,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @MapperScan(basePackages = {"com.imooc.mapper"})
 //默认扫描子包和他的包的下所有的，
 //这里添加自定义扫描
-@ComponentScan(basePackages = {"com.imooc","org.n3r.idworker"})
+@ComponentScan(basePackages = {"com.douyin","org.n3r.idworker"})
 @EnableMongoRepositories
 public class Application {
     public static void main(String[] args){

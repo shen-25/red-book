@@ -1,12 +1,12 @@
-package com.imooc;
+package com.douyin;
 
-import com.imooc.base.RabbitMQConfig;
-import com.imooc.enums.MessageEnum;
-import com.imooc.exceptions.GraceException;
-import com.imooc.grace.result.ResponseStatusEnum;
-import com.imooc.mo.MessageMO;
-import com.imooc.service.MsgService;
-import com.imooc.utils.JsonUtils;
+import com.douyin.base.RabbitMQConfig;
+import com.douyin.enums.MessageEnum;
+import com.douyin.exceptions.GraceException;
+import com.douyin.grace.result.ResponseStatusEnum;
+import com.douyin.mo.MessageMO;
+import com.douyin.service.MsgService;
+import com.douyin.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

@@ -1,6 +1,6 @@
-package com.imooc.exceptions;
+package com.douyin.exceptions;
 
-import com.imooc.grace.result.ResponseStatusEnum;
+import com.douyin.grace.result.ResponseStatusEnum;
 
 /**
  * 自定义异常

@@ -1,9 +1,9 @@
-package com.imooc.service;
+package com.douyin.service;
 
-import com.imooc.bo.CommentBO;
-import com.imooc.pojo.Comment;
-import com.imooc.utils.PagedGridResult;
-import com.imooc.vo.CommentVO;
+import com.douyin.bo.CommentBO;
+import com.douyin.pojo.Comment;
+import com.douyin.utils.PagedGridResult;
+import com.douyin.vo.CommentVO;
 
 public interface CommentService {
     /**

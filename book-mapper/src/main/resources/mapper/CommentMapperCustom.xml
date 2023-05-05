@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.imooc.mapper.CommentMapperCustom" >
+<mapper namespace="com.douyin.mapper.CommentMapperCustom" >
 
   <!--
       FIXME
@@ -8,7 +8,7 @@
       我们应该如何优化呢？使得sql脚本查询表位三表或者两表查询
       又或者说我们能不能不使用数据库，使用别的手段（中间件）来实现呢？
    -->
-  <select id="getCommentList" parameterType="map" resultType="com.imooc.vo.CommentVO">
+  <select id="getCommentList" parameterType="map" resultType="com.douyin.vo.CommentVO">
 
       SELECT
           c.id as commentId,

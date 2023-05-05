@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package com.imooc.my.mapper;
+package com.douyin.my.mapper;
 
 
 import org.springframework.stereotype.Repository;

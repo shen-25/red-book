@@ -1,4 +1,4 @@
-package com.imooc.utils;
+package com.douyin.utils;
 
 import com.tencentcloudapi.common.Credential;
 import com.tencentcloudapi.common.exception.TencentCloudSDKException;

@@ -1,11 +1,10 @@
-package com.imooc.interceptor;
+package com.douyin.interceptor;
 
-import com.imooc.base.BaseInfoProperties;
-import com.imooc.exceptions.GraceException;
-import com.imooc.grace.result.ResponseStatusEnum;
-import com.imooc.utils.IPUtil;
+import com.douyin.base.BaseInfoProperties;
+import com.douyin.exceptions.GraceException;
+import com.douyin.grace.result.ResponseStatusEnum;
+import com.douyin.utils.IPUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.servlet.AsyncHandlerInterceptor;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 

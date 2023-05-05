@@ -1,7 +1,7 @@
-package com.imooc.exceptions;
+package com.douyin.exceptions;
 
-import com.imooc.grace.result.GraceJSONResult;
-import com.imooc.grace.result.ResponseStatusEnum;
+import com.douyin.grace.result.GraceJSONResult;
+import com.douyin.grace.result.ResponseStatusEnum;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;

@@ -1,12 +1,12 @@
-package com.imooc.controller;
+package com.douyin.controller;
 
-import com.imooc.base.BaseInfoProperties;
-import com.imooc.enums.YesOrNo;
-import com.imooc.grace.result.GraceJSONResult;
-import com.imooc.pojo.MyLikedVlog;
-import com.imooc.service.VlogService;
-import com.imooc.utils.PagedGridResult;
-import com.imooc.vo.IndexVlogVO;
+import com.douyin.base.BaseInfoProperties;
+import com.douyin.bo.VlogBO;
+import com.douyin.enums.YesOrNo;
+import com.douyin.grace.result.GraceJSONResult;
+import com.douyin.service.VlogService;
+import com.douyin.utils.PagedGridResult;
+import com.douyin.vo.IndexVlogVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +21,13 @@ public class VlogController extends BaseInfoProperties {
 
     @Autowired
     private VlogService vlogService;
+
+    @ApiOperation(value = "用户发布视频")
+    @PostMapping("publish")
+    public GraceJSONResult publish(@RequestBody VlogBO vlogBO) {
+        vlogService.createVlog(vlogBO);
+        return GraceJSONResult.ok();
+    }
 
     @ApiOperation(value = "获取首页推荐路由")
     @GetMapping("indexList")

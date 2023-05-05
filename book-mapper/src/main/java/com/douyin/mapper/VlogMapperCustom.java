@@ -1,6 +1,6 @@
-package com.imooc.mapper;
+package com.douyin.mapper;
 
-import com.imooc.vo.IndexVlogVO;
+import com.douyin.vo.IndexVlogVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

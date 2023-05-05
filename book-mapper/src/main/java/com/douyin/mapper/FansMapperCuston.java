@@ -1,7 +1,7 @@
-package com.imooc.mapper;
+package com.douyin.mapper;
 
-import com.imooc.vo.FansVO;
-import com.imooc.vo.VlogerVO;
+import com.douyin.vo.FansVO;
+import com.douyin.vo.VlogerVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

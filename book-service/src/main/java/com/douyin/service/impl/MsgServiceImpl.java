@@ -1,12 +1,12 @@
-package com.imooc.service.impl;
+package com.douyin.service.impl;
 
-import com.imooc.base.BaseInfoProperties;
-import com.imooc.enums.MessageEnum;
-import com.imooc.mo.MessageMO;
-import com.imooc.pojo.Users;
-import com.imooc.repository.MessageRepository;
-import com.imooc.service.MsgService;
-import com.imooc.service.UserService;
+import com.douyin.base.BaseInfoProperties;
+import com.douyin.enums.MessageEnum;
+import com.douyin.mo.MessageMO;
+import com.douyin.pojo.Users;
+import com.douyin.repository.MessageRepository;
+import com.douyin.service.MsgService;
+import com.douyin.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

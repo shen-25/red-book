@@ -1,4 +1,4 @@
-package com.imooc.utils;
+package com.douyin.utils;
 
 /**
  * 通用脱敏工具类

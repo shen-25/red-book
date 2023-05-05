@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.imooc.mapper.FansMapperCuston" >
-    <select id="queryMyFollows" resultType="com.imooc.vo.VlogerVO" parameterType="map">
+<mapper namespace="com.douyin.mapper.FansMapperCuston" >
+    <select id="queryMyFollows" resultType="com.douyin.vo.VlogerVO" parameterType="map">
 
         SELECT
             u.id as vlogerId,
@@ -21,7 +21,7 @@
 
     </select>
 
-    <select id="queryMyFans" resultType="com.imooc.vo.FansVO" parameterType="map">
+    <select id="queryMyFans" resultType="com.douyin.vo.FansVO" parameterType="map">
 
         SELECT
             u.id as fanId,

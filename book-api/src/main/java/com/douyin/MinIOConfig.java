@@ -1,6 +1,6 @@
-package com.imooc;
+package com.douyin;
 
-import com.imooc.utils.MinIOUtils;
+import com.douyin.utils.MinIOUtils;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

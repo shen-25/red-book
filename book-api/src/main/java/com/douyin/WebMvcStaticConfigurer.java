@@ -1,4 +1,4 @@
-package com.imooc;
+package com.douyin;
 
 
 import org.springframework.context.annotation.Configuration;

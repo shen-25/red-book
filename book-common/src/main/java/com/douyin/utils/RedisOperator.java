@@ -1,4 +1,4 @@
-package com.imooc.utils;
+package com.douyin.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;

@@ -1,14 +1,16 @@
-package com.imooc.controller;
+package com.douyin.controller;
 
-import com.imooc.base.BaseInfoProperties;
-import com.imooc.bo.RegisterBo;
-import com.imooc.grace.result.GraceJSONResult;
-import com.imooc.grace.result.ResponseStatusEnum;
-import com.imooc.pojo.Users;
-import com.imooc.service.UserService;
-import com.imooc.utils.IPUtil;
-import com.imooc.utils.SMSUtils;
-import com.imooc.vo.UsersVO;
+import com.douyin.base.BaseInfoProperties;
+import com.douyin.bo.LoginBo;
+import com.douyin.bo.RegisterBO;
+import com.douyin.bo.SmsCodeBo;
+import com.douyin.grace.result.GraceJSONResult;
+import com.douyin.grace.result.ResponseStatusEnum;
+import com.douyin.pojo.Users;
+import com.douyin.service.UserService;
+import com.douyin.utils.IPUtil;
+import com.douyin.utils.SMSUtils;
+import com.douyin.vo.UsersVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 
@@ -50,8 +53,8 @@ public class PassportController extends BaseInfoProperties {
         log.info(userIp);
         String code = (int) ((Math.random() * 9 + 1) * 100000) + "";
         log.info("短信的验证码为：" + code);
-        //暂时用不了
-//        smsUtils.sendSMS("", code);
+        // 暂时用不了
+        //  smsUtils.sendSMS("", code);
         redis.set(MOBILE_SMSCODE + ":" + mobile, code, 30 * 60);
 
         return GraceJSONResult.ok();
@@ -60,19 +63,12 @@ public class PassportController extends BaseInfoProperties {
     /**
      * 添加valid开启校验
      *
-     * @param registerBo
-     * @return
      */
 
     @ApiOperation(value = "登录接口")
     @PostMapping("/login")
-    public GraceJSONResult login(@Valid @RequestBody RegisterBo registerBo) {
-//        boolean hasErrors = result.hasErrors();
-//        System.out.println(hasErrors);
-//        if (hasErrors) {
-//            Map<String, String> errorMap = getErrors(result);
-//            return GraceJSONResult.errorMap(errorMap);
-//        }
+    public GraceJSONResult login(@Valid @RequestBody SmsCodeBo registerBo) {
+
         String mobile = registerBo.getMobile();
         String code = registerBo.getSmsCode();
 
@@ -86,7 +82,7 @@ public class PassportController extends BaseInfoProperties {
         Users user = userService.queryMobileIsExit(mobile);
         if (user == null) {
             //2.1 没有注册，需要注册入库
-            user = userService.createUser(mobile);
+            user = userService.createUser(mobile, null);
         }
 
         //3.保存用户会话信息
@@ -106,6 +102,31 @@ public class PassportController extends BaseInfoProperties {
         return GraceJSONResult.ok(UsersVO);
     }
 
+    /**
+     * 通过密码登录
+
+     */
+    @ApiOperation(value = "登录接口")
+    @PostMapping("/login")
+    public GraceJSONResult loginByPassword(@Valid @RequestBody LoginBo loginBo) throws NoSuchAlgorithmException {
+
+        Users user = userService.getUserByPassword(loginBo);
+        //3.保存用户会话信息
+        String uToken = UUID.randomUUID().toString();
+        log.info("用户的token: " +   uToken);
+        log.info("用户id: " +  user.getId());
+        redis.set(REDIS_USER_TOKEN + ":" + user.getId(), uToken);
+
+
+        //5.放回用户信息，包含token
+        UsersVO UsersVO = new UsersVO();
+        BeanUtils.copyProperties(user, UsersVO);
+        UsersVO.setUserToken(uToken);
+
+        return GraceJSONResult.ok(UsersVO);
+    }
+
+
     @ApiOperation(value = "退出接口")
     @PostMapping("/logout")
     public GraceJSONResult logout(@RequestParam String userId,
@@ -113,4 +134,14 @@ public class PassportController extends BaseInfoProperties {
         redis.del(REDIS_USER_TOKEN + ":" + userId);
         return GraceJSONResult.ok();
     }
+
+
+    @PostMapping("/register")
+    @ResponseBody
+    public GraceJSONResult register(@Valid @RequestBody RegisterBO registerBo) throws Exception {
+
+        userService.register(registerBo);
+        return GraceJSONResult.ok();
+    }
+
 }

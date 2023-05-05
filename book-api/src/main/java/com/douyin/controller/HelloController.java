@@ -1,7 +1,7 @@
-package com.imooc.controller;
+package com.douyin.controller;
 
-import com.imooc.base.RabbitMQConfig;
-import com.imooc.utils.SMSUtils;
+import com.douyin.base.RabbitMQConfig;
+import com.douyin.utils.SMSUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

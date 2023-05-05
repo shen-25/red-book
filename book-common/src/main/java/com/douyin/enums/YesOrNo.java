@@ -1,4 +1,4 @@
-package com.imooc.enums;
+package com.douyin.enums;
 
 /**
  * @author word

@@ -32,6 +32,28 @@
             <artifactId>knife4j-springdoc-ui</artifactId>
             <!--在引用时请在maven中央仓库搜索3.X最新版本号-->
         </dependency>
+
     </dependencies>
+    <!--
+       SpringBoot的Maven插件, 能够以Maven的方式为应用提供SpringBoot的支持，可以将
+       SpringBoot应用打包为可执行的jar或war文件, 然后以通常的方式运行SpringBoot应用
+    -->
+    <build>
+        <finalName>${artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.5.4</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

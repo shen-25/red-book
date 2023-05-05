@@ -1,11 +1,9 @@
-package com.imooc.controller;
+package com.douyin.controller;
 
-import com.imooc.base.BaseInfoProperties;
-import com.imooc.grace.result.GraceJSONResult;
-import com.imooc.mo.MessageMO;
-import com.imooc.model.Student;
-import com.imooc.service.MsgService;
-import com.imooc.utils.SMSUtils;
+import com.douyin.base.BaseInfoProperties;
+import com.douyin.grace.result.GraceJSONResult;
+import com.douyin.mo.MessageMO;
+import com.douyin.service.MsgService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

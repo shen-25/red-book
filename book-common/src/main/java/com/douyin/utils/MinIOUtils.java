@@ -1,4 +1,4 @@
-package com.imooc.utils;
+package com.douyin.utils;
 
 import io.minio.*;
 import io.minio.http.Method;

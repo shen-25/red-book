@@ -1,4 +1,4 @@
-package com.imooc.utils;
+package com.douyin.utils;
 
 import org.apache.commons.lang3.StringUtils;
 

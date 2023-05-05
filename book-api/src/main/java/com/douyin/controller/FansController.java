@@ -1,18 +1,15 @@
-package com.imooc.controller;
+package com.douyin.controller;
 
-import com.imooc.base.BaseInfoProperties;
-import com.imooc.grace.result.GraceJSONResult;
-import com.imooc.grace.result.ResponseStatusEnum;
-import com.imooc.model.Student;
-import com.imooc.pojo.Users;
-import com.imooc.service.FanService;
-import com.imooc.service.UserService;
-import com.imooc.utils.SMSUtils;
+import com.douyin.base.BaseInfoProperties;
+import com.douyin.grace.result.GraceJSONResult;
+import com.douyin.grace.result.ResponseStatusEnum;
+import com.douyin.pojo.Users;
+import com.douyin.service.FanService;
+import com.douyin.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

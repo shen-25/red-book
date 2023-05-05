@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.imooc.mapper.MyLikedVlogMapper" >
-  <resultMap id="BaseResultMap" type="com.imooc.pojo.MyLikedVlog" >
+<mapper namespace="com.douyin.mapper.MyLikedVlogMapper" >
+  <resultMap id="BaseResultMap" type="com.douyin.pojo.MyLikedVlog" >
     <!--
       WARNING - @mbg.generated
     -->

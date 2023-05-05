@@ -1,6 +1,6 @@
-package com.imooc.service;
+package com.douyin.service;
 
-import com.imooc.utils.PagedGridResult;
+import com.douyin.utils.PagedGridResult;
 
 public interface FanService {
 

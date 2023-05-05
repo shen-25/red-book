@@ -1,6 +1,6 @@
-package com.imooc.mapper;
+package com.douyin.mapper;
 
-import com.imooc.vo.CommentVO;
+import com.douyin.vo.CommentVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

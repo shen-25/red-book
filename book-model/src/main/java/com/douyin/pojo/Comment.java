@@ -1,4 +1,4 @@
-package com.imooc.pojo;
+package com.douyin.pojo;
 
 import java.util.Date;
 import javax.persistence.*;

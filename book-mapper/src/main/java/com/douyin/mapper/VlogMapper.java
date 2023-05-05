@@ -1,7 +1,7 @@
-package com.imooc.mapper;
+package com.douyin.mapper;
 
-import com.imooc.my.mapper.MyMapper;
-import com.imooc.pojo.Vlog;
+import com.douyin.my.mapper.MyMapper;
+import com.douyin.pojo.Vlog;
 import org.springframework.stereotype.Repository;
 
 @Repository

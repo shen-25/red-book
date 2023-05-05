@@ -1,8 +1,8 @@
-package com.imooc.interceptor;
+package com.douyin.interceptor;
 
-import com.imooc.base.BaseInfoProperties;
-import com.imooc.exceptions.GraceException;
-import com.imooc.grace.result.ResponseStatusEnum;
+import com.douyin.base.BaseInfoProperties;
+import com.douyin.exceptions.GraceException;
+import com.douyin.grace.result.ResponseStatusEnum;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;

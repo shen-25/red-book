@@ -1,30 +1,34 @@
-package com.imooc.service.impl;
+package com.douyin.service.impl;
 
+import com.douyin.base.BaseInfoProperties;
+import com.douyin.base.RabbitMQConfig;
+import com.douyin.bo.VlogBO;
+import com.douyin.enums.MessageEnum;
+import com.douyin.enums.YesOrNo;
+import com.douyin.mapper.MyLikedVlogMapper;
+import com.douyin.mapper.VlogMapper;
+import com.douyin.mapper.VlogMapperCustom;
+import com.douyin.mo.MessageMO;
+import com.douyin.pojo.MyLikedVlog;
+import com.douyin.pojo.Vlog;
+import com.douyin.service.FanService;
+import com.douyin.service.MsgService;
+import com.douyin.service.VlogService;
+import com.douyin.utils.JsonUtils;
+import com.douyin.utils.PagedGridResult;
+import com.douyin.vo.IndexVlogVO;
 import com.github.pagehelper.PageHelper;
-import com.imooc.base.BaseInfoProperties;
-import com.imooc.base.RabbitMQConfig;
-import com.imooc.enums.MessageEnum;
-import com.imooc.mapper.MyLikedVlogMapper;
-import com.imooc.mapper.VlogMapper;
-import com.imooc.mapper.VlogMapperCustom;
-import com.imooc.mo.MessageMO;
-import com.imooc.pojo.MyLikedVlog;
-import com.imooc.pojo.Vlog;
-import com.imooc.service.FanService;
-import com.imooc.service.MsgService;
-import com.imooc.service.VlogService;
-import com.imooc.utils.JsonUtils;
-import com.imooc.utils.PagedGridResult;
-import com.imooc.vo.IndexVlogVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.n3r.idworker.Sid;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,11 +54,36 @@ public class VlogServiceImpl extends BaseInfoProperties implements VlogService {
     @Autowired
     private FanService fansService;
 
-    @Autowired
-    private MsgService msgService;
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
+
+
+    /**
+     * 新增vlog视频
+     */
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void createVlog(VlogBO vlogBO) {
+
+        String vid = sid.nextShort();
+
+        Vlog vlog = new Vlog();
+        BeanUtils.copyProperties(vlogBO, vlog);
+
+        vlog.setId(vid);
+
+        vlog.setLikeCounts(0);
+        vlog.setCommentsCounts(0);
+        vlog.setIsPrivate(YesOrNo.NO.type);
+
+        vlog.setCreatedTime(new Date());
+        vlog.setUpdatedTime(new Date());
+
+        vlogMapper.insert(vlog);
+    }
+
 
     /**
      * 查询首页的vlog
@@ -145,10 +174,6 @@ public class VlogServiceImpl extends BaseInfoProperties implements VlogService {
     /**
      * 查询用户的公开或者私密视频
      *
-     * @param userId
-     * @param page
-     * @param pageSize
-     * @param yesOrNo
      */
     @Override
     public PagedGridResult queryMyVlogList(String userId, Integer page, Integer pageSize, Integer yesOrNo) {
@@ -156,17 +181,17 @@ public class VlogServiceImpl extends BaseInfoProperties implements VlogService {
         Example example = new Example(Vlog.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("vlogerId", userId);
+
         criteria.andEqualTo("isPrivate", yesOrNo);
         PageHelper.startPage(page, pageSize);
         List<Vlog> vlogList = vlogMapper.selectByExample(example);
+
         return setterPagedGrid(vlogList, page);
     }
 
     /**
      * 用户点赞视频
      *
-     * @param userId
-     * @param vlogId
      */
     @Override
     @Transactional

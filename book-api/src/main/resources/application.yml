@@ -26,7 +26,7 @@ mybatis:
 
 # 通用mapper工具的配置
 mapper:
-  mappers: com.imooc.my.mapper.MyMapper      # 配置MyMapper，包含了一些封装好的CRUD方法
+  mappers: com.douyin.my.mapper.MyMapper      # 配置MyMapper，包含了一些封装好的CRUD方法
   not-empty: false                           # 在进行数据库操作的时候，username != null 是否会追加 username != ''
   identity: MYSQL
 

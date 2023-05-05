@@ -1,7 +1,4 @@
-package com.imooc.controller;
-
-import com.imooc.utils.RedisOperator;
-import org.springframework.beans.factory.annotation.Autowired;
+package com.douyin.controller;
 
 public class BaseController {
 

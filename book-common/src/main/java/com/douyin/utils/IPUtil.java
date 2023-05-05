@@ -1,4 +1,4 @@
-package com.imooc.utils;
+package com.douyin.utils;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -1,11 +1,17 @@
-package com.imooc.service;
+package com.douyin.service;
 
-import com.imooc.pojo.MyLikedVlog;
-import com.imooc.pojo.Vlog;
-import com.imooc.utils.PagedGridResult;
-import com.imooc.vo.IndexVlogVO;
+import com.douyin.bo.VlogBO;
+import com.douyin.pojo.MyLikedVlog;
+import com.douyin.pojo.Vlog;
+import com.douyin.utils.PagedGridResult;
+import com.douyin.vo.IndexVlogVO;
 
 public interface VlogService {
+
+    /**
+     * 创建视频
+     */
+    public void createVlog(VlogBO vlogBO);
 
     /**
      * 查询首页的vlog

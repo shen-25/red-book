@@ -79,7 +79,7 @@
                 <scope>import</scope>
             </dependency>
 
-<!--            mysql 驱动-->
+            <!-- mysql 驱动-->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
@@ -91,13 +91,13 @@
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis-spring-boot-starter.version}</version>
             </dependency>
-            <!--             通用mapper逆向工具-->
+            <!-- 通用mapper逆向工具-->
             <dependency>
                 <groupId>tk.mybatis</groupId>
                 <artifactId>mapper-spring-boot-starter</artifactId>
                 <version>${mapper-spring-boot-starter.version}</version>
             </dependency>
-            <!--            分页插件-->
+            <!-- 分页插件-->
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
@@ -182,7 +182,6 @@
                 <artifactId>tencentcloud-sdk-java</artifactId>
                 <version>3.1.89</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 

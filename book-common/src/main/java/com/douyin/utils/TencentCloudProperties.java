@@ -1,4 +1,4 @@
-package com.imooc.utils;
+package com.douyin.utils;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

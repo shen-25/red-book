@@ -1,7 +1,7 @@
-package com.imooc.enums;
+package com.douyin.enums;
 
-import com.imooc.exceptions.GraceException;
-import com.imooc.grace.result.ResponseStatusEnum;
+import com.douyin.exceptions.GraceException;
+import com.douyin.grace.result.ResponseStatusEnum;
 
 /**
  * @Desc: 修改用户信息类型 枚举

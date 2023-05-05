@@ -1,10 +1,9 @@
-package com.imooc;
+package com.douyin;
 
-import com.imooc.interceptor.PassportInterceptor;
-import com.imooc.interceptor.UserTokenInterceptor;
+import com.douyin.interceptor.PassportInterceptor;
+import com.douyin.interceptor.UserTokenInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 

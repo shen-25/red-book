@@ -1,7 +1,7 @@
-package com.imooc.base;
+package com.douyin.base;
 import com.github.pagehelper.PageInfo;
-import com.imooc.utils.PagedGridResult;
-import com.imooc.utils.RedisOperator;
+import com.douyin.utils.PagedGridResult;
+import com.douyin.utils.RedisOperator;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

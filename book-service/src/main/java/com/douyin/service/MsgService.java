@@ -1,6 +1,6 @@
-package com.imooc.service;
+package com.douyin.service;
 
-import com.imooc.mo.MessageMO;
+import com.douyin.mo.MessageMO;
 
 import java.util.List;
 import java.util.Map;

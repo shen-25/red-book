@@ -1,13 +1,10 @@
-package com.imooc.vo;
+package com.douyin.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Data

@@ -5,7 +5,7 @@ spring:
   datasource:                                     # 数据源的相关配置
     type: com.zaxxer.hikari.HikariDataSource      # 数据源的类型，可以更改为其他的数据源配置，比如druid
     driver-class-name: com.mysql.cj.jdbc.Driver      # mysql/MariaDB 的数据库驱动类名称
-    url: jdbc:mysql://localhost:3306/imooc-red-book-dev?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+    url: jdbc:mysql://10.60.29.65:3306/douyin?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
     username: root
     password: 123456
     hikari:
@@ -19,17 +19,17 @@ spring:
       connection-test-query: SELECT 1
 
   redis:
-    host: 192.168.0.108
+    host: 192.168.93.129
     port: 6379
     database: 0
     password: 123456
   data:
     mongodb:
-      uri: mongodb://root:123456@192.168.0.108:27017
+      uri: mongodb://root:123456@192.168.93.129:27017
       database: imooc-red-book
 
   rabbitmq:
-    host: 192.168.0.108
+    host: 192.168.93.129
     port: 5672
     username: root
     password: 123456
@@ -37,12 +37,10 @@ spring:
 
 # MinIO 配置
 minio:
-    endpoint: http://192.168.0.108:9000      # MinIO服务地址
-    fileHost: http://192.168.0.108:9000      # 文件地址host
-    bucketName: imooc                      # 存储桶bucket名称
-    accessKey: root                         # 用户名
-    secretKey: 12345678                     # 密码
-    imgSize: 1024                           # 图片大小限制，单位：m
-    fileSize: 1024                          # 文件大小限制，单位：m
+  endpoint: http://192.168.93.129:9000      # MinIO服务地址
+  fileHost: http://192.168.93.129:9000      # 文件地址host
+  bucketName: imooc                      # 存储桶bucket名称
+  accessKey: root                         # 用户名
+  secretKey: 12345678                     # 密码
 
 

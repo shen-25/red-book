@@ -1,6 +1,6 @@
-package com.imooc.repository;
+package com.douyin.repository;
 
-import com.imooc.mo.MessageMO;
+import com.douyin.mo.MessageMO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

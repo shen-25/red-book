@@ -1,10 +1,9 @@
-package com.imooc.controller;
+package com.douyin.controller;
 
-import com.imooc.base.BaseInfoProperties;
-import com.imooc.bo.CommentBO;
-import com.imooc.grace.result.GraceJSONResult;
-import com.imooc.service.CommentService;
-import com.imooc.service.VlogService;
+import com.douyin.base.BaseInfoProperties;
+import com.douyin.bo.CommentBO;
+import com.douyin.grace.result.GraceJSONResult;
+import com.douyin.service.CommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
